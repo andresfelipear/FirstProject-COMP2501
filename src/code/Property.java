@@ -13,6 +13,23 @@ public class Property
     private final String type;
     private final String propertyId;
 
+    /**
+     * Constructs a new Property object with the specified details.
+     *
+     * @param priceUsd        The price of the property in USD.
+     *                        Throws IllegalArgumentException if the price is invalid.
+     * @param address         The address of the property.
+     *                        Throws NullPointerException if the address is null.
+     * @param numberOfBedrooms The number of bedrooms in the property.
+     *                        Throws IllegalArgumentException if the number of bedrooms is invalid.
+     * @param swimmingPool    Indicates whether the property has a swimming pool.
+     * @param type            The type of the property.
+     *                        Throws NullPointerException if the type is null.
+     *                        Throws IllegalArgumentException if the type is invalid.
+     * @param propertyId      The unique identifier of the property.
+     *                        Throws NullPointerException if the propertyId is null.
+     *                        Throws IllegalArgumentException if the propertyId is invalid.
+     */
     public Property(final double priceUsd,
                     final Address address,
                     final int numberOfBedrooms,

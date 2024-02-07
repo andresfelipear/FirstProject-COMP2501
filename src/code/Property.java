@@ -208,4 +208,31 @@ public class Property
         return priceUsd >= 0;
     }
 
+
+    public String getPropertyDetails()
+    {
+        if(swimmingPool)
+        {
+            if(numberOfBedrooms == 1)
+            {
+                return numberOfBedrooms + " bedroom plus pool";
+            }
+            else
+            {
+                return numberOfBedrooms + " bedrooms plus pool";
+            }
+        }
+        else
+        {
+            if(numberOfBedrooms == 1)
+            {
+                return numberOfBedrooms + " bedroom";
+            }
+            else
+            {
+                return numberOfBedrooms + " bedrooms";
+            }
+        }
+    }
+
 }

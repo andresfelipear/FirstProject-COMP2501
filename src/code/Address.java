@@ -182,4 +182,46 @@ public class Address
         return !unitNumber.isEmpty() && unitNumber.length() <= 4;
     }
 
+    public String getFullAddress()
+    {
+        final String fullAddress;
+        if(unitNumber != null)
+        {
+            fullAddress = "unit #" + unitNumber + " at " + streetNumber + " " + getStringTitleCase(streetName) + " " +
+                    postalCode.toUpperCase() + " in " + getStringTitleCase(city);
+
+        }
+        else
+        {
+            fullAddress = streetNumber + " " + getStringTitleCase(streetName) + " " +
+                    postalCode.toUpperCase() + " in " + getStringTitleCase(city);
+        }
+
+        return fullAddress;
+    }
+
+    static public String getStringTitleCase(final String string)
+    {
+        if(string == null || string.isEmpty())
+        {
+            return null;
+        }
+
+        boolean capitalizeNext = true;
+        StringBuilder titleCase = new StringBuilder();
+        for (final char c : string.toCharArray()) {
+            if (Character.isWhitespace(c)) {
+                titleCase.append(c);
+                capitalizeNext = true;
+            } else if (capitalizeNext) {
+                titleCase.append(Character.toTitleCase(c));
+                capitalizeNext = false;
+            } else {
+                titleCase.append(Character.toLowerCase(c));
+            }
+        }
+
+        return titleCase.toString();
+    }
+
 }

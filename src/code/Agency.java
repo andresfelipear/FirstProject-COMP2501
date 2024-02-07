@@ -161,8 +161,72 @@ public class Agency
         }
     }
 
-    public Map<String, Property> getPropertiesWithBedrooms(final int minBedrooms, final int maxBedrooms)
+    public HashMap<String, Property> getPropertiesWithBedrooms(final int minBedrooms, final int maxBedrooms)
     {
+        final HashMap<String, Property> propertiesWithBedrooms;
+        final Set<String> keys;
+        Property property;
 
+        keys = properties.keySet();
+        propertiesWithBedrooms = new HashMap<>();
+
+        for(final String key: keys)
+        {
+            property = properties.get(key);
+
+            if(property.getNumberOfBedrooms() >= minBedrooms && property.getNumberOfBedrooms() <= maxBedrooms)
+            {
+                propertiesWithBedrooms.put(property.getPropertyId(), property);
+            }
+        }
+
+        if(!propertiesWithBedrooms.isEmpty())
+        {
+            return propertiesWithBedrooms;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public ArrayList<String> getPropertiesOfType(final String propertyType)
+    {
+        final ArrayList<String> propertiesOfType;
+        final Set<String> keys;
+        Property property;
+        int counter;
+        String propertyDetails;
+
+
+        propertiesOfType = new ArrayList<>();
+        keys = properties.keySet();
+        counter = 1;
+
+        // header
+        propertiesOfType.add("Type: " + propertyType.toUpperCase() + "\n");
+
+        for(final String key: keys)
+        {
+            property = properties.get(key);
+
+            if(property.getType().equalsIgnoreCase(propertyType))
+            {
+                propertyDetails = counter + ") Property " + property.getPropertyId() + ": " +
+                        property.getAddress().getFullAddress() + " (" + property.getPropertyDetails() +
+                        String.format("): $%.0f", property.getPriceUsd()) + ".\n";
+
+                propertiesOfType.add(propertyDetails);
+
+                counter++;
+            }
+        }
+
+        if(propertiesOfType.size() == 1)
+        {
+            propertiesOfType.add("<none found>");
+        }
+
+        return propertiesOfType;
     }
 }

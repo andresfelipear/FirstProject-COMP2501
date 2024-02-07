@@ -64,9 +64,8 @@ public class Main
         agency.addProperty(p11);
         agency.addProperty(p12);
 
-        ArrayList<String> agencyData = agency.getPropertiesOfType("fake fake fake");
+        ArrayList<String> agencyData = agency.getPropertiesOfType("cOmmercial");
         System.out.println("the size of the array: " + agencyData.size());
-        System.out.println(Address.getStringTitleCase("west vancouver"));
 
         for(String string: agencyData)
         {

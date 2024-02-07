@@ -209,6 +209,11 @@ public class Property
     }
 
 
+    /**
+     * Generates a string representing the details of the property based on the number of bedrooms and the presence of a pool.
+     *
+     * @return A string describing the property details, including the number of bedrooms and whether it has a pool.
+     */
     public String getPropertyDetails()
     {
         if(swimmingPool)

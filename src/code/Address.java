@@ -200,7 +200,14 @@ public class Address
         return fullAddress;
     }
 
-    static public String getStringTitleCase(final String string)
+    /**
+     * Converts a given string to title case, capitalizing the first letter of each word.
+     * Whitespace characters are preserved.
+     *
+     * @param string The input string to be converted to title case.
+     * @return The string in title case, or null if the input string is null or empty.
+     */
+    private String getStringTitleCase(final String string)
     {
         if(string == null || string.isEmpty())
         {

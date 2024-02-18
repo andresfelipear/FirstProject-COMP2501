@@ -13,7 +13,7 @@ public class Address
     private final String city;
 
     public static final int MAX_CITY_LENGTH = 30;
-    public static final int MAX_STREET_NAME = 20;
+    public static final int MAX_STREET_NAME_LENGTH = 20;
     public static final int MAX_STREET_NUMBER = 999999;
     public static final int MAX_UNIT_NUMBER_LENGTH = 4;
     public static final int MAX_POSTAL_CODE_LENGTH = 6;
@@ -167,7 +167,7 @@ public class Address
      */
     private boolean isValidStreetName(final String streetName)
     {
-        return streetName != null && !streetName.isEmpty() && streetName.length() <= MAX_STREET_NAME;
+        return streetName != null && !streetName.isEmpty() && streetName.length() <= MAX_STREET_NAME_LENGTH;
     }
 
 

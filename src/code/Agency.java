@@ -8,12 +8,12 @@ import java.util.*;
  */
 public class Agency
 {
-
     private final String name;
     private final Map<String, Property> properties;
 
+    private static final int INITIAL_LIST_SIZE = 1;
+    public static final int INITIAL_COUNTER_VALUE = 1;
     public static final int MAX_NAME_LENGTH = 30;
-    public static final int INITIAL_NUMBER_OF_PROPERTIES = 1;
 
     /**
      * Represents a real estate agency with a specified name and a collection of properties.
@@ -87,6 +87,7 @@ public class Agency
     {
         return properties.getOrDefault(propertyId, null);
     }
+
 
     /**
      * Calculates and returns the total value of all properties in the agency in USD.
@@ -239,8 +240,9 @@ public class Agency
     {
         final ArrayList<String> propertiesOfType;
         int counter;
+        String propertyDetails;
 
-        counter = INITIAL_NUMBER_OF_PROPERTIES;
+        counter = INITIAL_COUNTER_VALUE;
         propertiesOfType= new ArrayList<>();
 
         // header
@@ -250,7 +252,7 @@ public class Agency
         {
             if(property.getType().equalsIgnoreCase(propertyType))
             {
-                String propertyDetails = counter + ") Property " + property.getPropertyId() + ": " +
+                propertyDetails = counter + ") Property " + property.getPropertyId() + ": " +
                         property.getAddress().getFullAddress() + " (" + property.getPropertyDetails() +
                         String.format("): $%.0f", property.getPriceUsd()) + ".\n";
 
@@ -259,7 +261,7 @@ public class Agency
             }
         }
 
-        if(propertiesOfType.size() == 1)
+        if(propertiesOfType.size() == INITIAL_LIST_SIZE)
         {
             propertiesOfType.add("<none found>");
         }

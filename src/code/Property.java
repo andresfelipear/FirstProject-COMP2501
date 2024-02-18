@@ -13,6 +13,12 @@ public class Property
     private final String type;
     private final String propertyId;
 
+    private static final int SINGLE_BEDROOM = 1;
+    private static final int MAX_PROPERTY_ID_LENGTH = 6;
+    private static final int MAX_NUMBER_OF_BEDROOMS = 20;
+    private static final double MIN_PRICE_USD = 0;
+
+
     /**
      * Constructs a new Property object with the specified details.
      *
@@ -88,6 +94,7 @@ public class Property
         return priceUsd;
     }
 
+
     /**
      * Gets the address of the property.
      *
@@ -97,6 +104,7 @@ public class Property
     {
         return address;
     }
+
 
     /**
      * Gets the number of bedrooms in the property.
@@ -108,6 +116,7 @@ public class Property
         return numberOfBedrooms;
     }
 
+
     /**
      * Checks if the property has a swimming pool.
      *
@@ -117,6 +126,7 @@ public class Property
     {
         return swimmingPool;
     }
+
 
     /**
      * Gets the type of the property.
@@ -128,6 +138,7 @@ public class Property
         return type;
     }
 
+
     /**
      * Gets the property ID.
      *
@@ -137,6 +148,7 @@ public class Property
     {
         return propertyId;
     }
+
 
     /**
      * Sets the price of the property in USD.
@@ -148,6 +160,7 @@ public class Property
         this.priceUsd = priceUsd;
     }
 
+
     /**
      * Validates if the provided property ID has a length between 1 and 6 characters.
      *
@@ -156,8 +169,9 @@ public class Property
      */
     private boolean isValidPropertyId(final String propertyId)
     {
-        return !propertyId.isEmpty() && propertyId.length() <= 6;
+        return !propertyId.isEmpty() && propertyId.length() <= MAX_PROPERTY_ID_LENGTH;
     }
+
 
     /**
      * Validates if the provided property type is one of "residence", "commercial", or "retail" (case-insensitive).
@@ -172,6 +186,7 @@ public class Property
                 type.equalsIgnoreCase("retail");
     }
 
+
     /**
      * Validates if the provided number of bedrooms is between 1 and 20.
      *
@@ -180,8 +195,9 @@ public class Property
      */
     private boolean isValidNumberBedrooms(final int numberBedrooms)
     {
-        return numberBedrooms >= 1 && numberBedrooms <= 20;
+        return numberBedrooms >= 1 && numberBedrooms <= MAX_NUMBER_OF_BEDROOMS;
     }
+
 
     /**
      * Validates if the provided price in USD is non-negative.
@@ -191,7 +207,7 @@ public class Property
      */
     private boolean isValidPriceUsd(final double priceUsd)
     {
-        return priceUsd >= 0;
+        return priceUsd >= MIN_PRICE_USD;
     }
 
 
@@ -204,7 +220,7 @@ public class Property
     {
         if(swimmingPool)
         {
-            if(numberOfBedrooms == 1)
+            if(numberOfBedrooms == SINGLE_BEDROOM)
             {
                 return numberOfBedrooms + " bedroom plus pool";
             }
@@ -215,7 +231,7 @@ public class Property
         }
         else
         {
-            if(numberOfBedrooms == 1)
+            if(numberOfBedrooms == SINGLE_BEDROOM)
             {
                 return numberOfBedrooms + " bedroom";
             }
@@ -225,5 +241,4 @@ public class Property
             }
         }
     }
-
 }

@@ -37,43 +37,26 @@ public class Property
                     final String type,
                     final String propertyId)
     {
-        // price usd validation
-        if(isValidPriceUsd(priceUsd))
-        {
-            this.priceUsd = priceUsd;
-        } else
+        if(!isValidPriceUsd(priceUsd))
         {
             throw new IllegalArgumentException("Invalid price: " + priceUsd);
         }
 
-        // address validation
         if(address == null)
         {
             throw new NullPointerException("Invalid address: " + address);
-        } else
-        {
-            this.address = address;
         }
 
-        // number of bedrooms validation
-        if(isValidNumberBedrooms(numberOfBedrooms))
-        {
-            this.numberOfBedrooms = numberOfBedrooms;
-        } else
+        if(!isValidNumberBedrooms(numberOfBedrooms))
         {
             throw new IllegalArgumentException("Invalid number of bedrooms: " + numberOfBedrooms);
         }
 
-        this.swimmingPool = swimmingPool;
-
-        // type validation
         if(type == null)
         {
             throw new NullPointerException("Invalid property type: " + type);
-        } else if(isValidType(type))
-        {
-            this.type = type;
-        } else
+        }
+        if(!isValidType(type))
         {
             throw new IllegalArgumentException("Invalid property type: " + type);
         }
@@ -81,15 +64,18 @@ public class Property
         if(propertyId == null)
         {
             throw new NullPointerException("Invalid property id: " + propertyId);
-        } else if(isValidPropertyId(propertyId))
-        {
-            this.propertyId = propertyId;
-        } else
+        }
+        if(!isValidPropertyId(propertyId))
         {
             throw new IllegalArgumentException("Invalid property id: " + propertyId);
         }
 
-
+        this.propertyId = propertyId;
+        this.type = type;
+        this.priceUsd = priceUsd;
+        this.address = address;
+        this.numberOfBedrooms = numberOfBedrooms;
+        this.swimmingPool = swimmingPool;
     }
 
     /**

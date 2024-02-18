@@ -12,25 +12,31 @@ public class Agency
     private final String name;
     private final Map<String, Property> properties;
 
+    public static final int MAX_NAME_LENGTH = 30;
+    public static final int INITIAL_NUMBER_OF_PROPERTIES = 1;
+
     /**
      * Represents a real estate agency with a specified name and a collection of properties.
-     *
+     * <p>
      * The name of the agency must not be null and must be a non-empty string with a length not exceeding 30 characters.
      *
      * @param name The name of the agency.
      * @throws NullPointerException     if the provided name is null.
      * @throws IllegalArgumentException if the provided name is invalid.
      */
-    public Agency(final String name) {
-        // Validates name
-        if (name == null) {
+    public Agency(final String name)
+    {
+        if(name == null)
+        {
             throw new NullPointerException("Invalid name: " + name);
-        } else if (isValidName(name)) {
-            this.name = name;
-        } else {
+        }
+
+        if(!isValidName(name))
+        {
             throw new IllegalArgumentException("Invalid name: " + name);
         }
 
+        this.name = name;
         this.properties = new HashMap<>();
     }
 
@@ -40,8 +46,9 @@ public class Agency
      * @param name The name to be validated.
      * @return true if the name is valid, false otherwise.
      */
-    private boolean isValidName(final String name) {
-        return !name.isEmpty() && name.length() <= 30;
+    private boolean isValidName(final String name)
+    {
+        return !name.isEmpty() && name.length() <= MAX_NAME_LENGTH;
     }
 
     /**
@@ -49,8 +56,10 @@ public class Agency
      *
      * @param property The property to be added.
      */
-    public void addProperty(final Property property) {
-        if (property != null) {
+    public void addProperty(final Property property)
+    {
+        if(property != null)
+        {
             properties.put(property.getPropertyId(), property);
         }
     }
@@ -60,8 +69,10 @@ public class Agency
      *
      * @param propertyId The property ID of the property to be removed.
      */
-    public void removeProperty(final String propertyId) {
-        if (propertyId != null) {
+    public void removeProperty(final String propertyId)
+    {
+        if(propertyId != null)
+        {
             properties.remove(propertyId);
         }
     }
@@ -72,7 +83,8 @@ public class Agency
      * @param propertyId The property ID of the desired property.
      * @return The property with the specified property ID, or null if not found.
      */
-    public Property getProperty(final String propertyId) {
+    public Property getProperty(final String propertyId)
+    {
         return properties.getOrDefault(propertyId, null);
     }
 
@@ -81,10 +93,13 @@ public class Agency
      *
      * @return The total value of all properties in the agency.
      */
-    public double getTotalPropertyValues() {
-        double totalAmountUsd = 0;
+    public double getTotalPropertyValues()
+    {
+        double totalAmountUsd;
+        totalAmountUsd = 0;
 
-        for (Property property : properties.values()) {
+        for(Property property : properties.values())
+        {
             totalAmountUsd += property.getPriceUsd();
         }
 
@@ -116,10 +131,8 @@ public class Agency
         {
             return propertiesWithPools;
         }
-        else
-        {
-            return null;
-        }
+
+        return null;
     }
 
     /**
@@ -129,18 +142,30 @@ public class Agency
      * @param maxUsd The maximum price in USD.
      * @return An array of properties within the specified price range, or null if none found.
      */
-    public Property[] getPropertiesBetween(final double minUsd, final double maxUsd) {
-        final List<Property> propertiesBetween = new ArrayList<>();
+    public Property[] getPropertiesBetween(final double minUsd,
+                                           final double maxUsd)
+    {
+        final List<Property> propertiesBetween;
+        double propertyPriceUsd;
 
-        for (Property property : properties.values()) {
-            double propertyPriceUsd = property.getPriceUsd();
+        propertiesBetween = new ArrayList<>();
 
-            if (propertyPriceUsd >= minUsd && propertyPriceUsd <= maxUsd) {
+        for(Property property : properties.values())
+        {
+            propertyPriceUsd = property.getPriceUsd();
+
+            if(propertyPriceUsd >= minUsd && propertyPriceUsd <= maxUsd)
+            {
                 propertiesBetween.add(property);
             }
         }
 
-        return propertiesBetween.isEmpty() ? null : propertiesBetween.toArray(new Property[0]);
+        if(propertiesBetween.isEmpty())
+        {
+            return null;
+        }
+
+        return propertiesBetween.toArray(new Property[0]);
     }
 
     /**
@@ -149,18 +174,29 @@ public class Agency
      * @param streetName The name of the street.
      * @return A list of addresses for properties on the specified street, or null if none found.
      */
-    public List<Address> getPropertiesOn(final String streetName) {
-        final List<Address> addressesOn = new ArrayList<>();
+    public List<Address> getPropertiesOn(final String streetName)
+    {
+        final List<Address> addressesOn;
+        Address propertyAddress;
 
-        for (Property property : properties.values()) {
-            Address propertyAddress = property.getAddress();
+        addressesOn = new ArrayList<>();
 
-            if (propertyAddress.getStreetName().equalsIgnoreCase(streetName)) {
+        for(Property property : properties.values())
+        {
+            propertyAddress = property.getAddress();
+
+            if(propertyAddress.getStreetName().equalsIgnoreCase(streetName))
+            {
                 addressesOn.add(propertyAddress);
             }
         }
 
-        return addressesOn.isEmpty() ? null : addressesOn;
+        if(addressesOn.isEmpty())
+        {
+            return null;
+        }
+
+        return addressesOn;
     }
 
     /**
@@ -171,16 +207,26 @@ public class Agency
      * @param maxBedrooms The maximum number of bedrooms.
      * @return A map of properties with the specified number of bedrooms, or null if none found.
      */
-    public HashMap<String, Property> getPropertiesWithBedrooms(final int minBedrooms, final int maxBedrooms) {
-        final HashMap<String, Property> propertiesWithBedrooms = new HashMap<>();
+    public HashMap<String, Property> getPropertiesWithBedrooms(final int minBedrooms,
+                                                               final int maxBedrooms)
+    {
+        final HashMap<String, Property> propertiesWithBedrooms;
+        propertiesWithBedrooms = new HashMap<>();
 
-        for (Property property : properties.values()) {
-            if (property.getNumberOfBedrooms() >= minBedrooms && property.getNumberOfBedrooms() <= maxBedrooms) {
+        for(Property property : properties.values())
+        {
+            if(property.getNumberOfBedrooms() >= minBedrooms && property.getNumberOfBedrooms() <= maxBedrooms)
+            {
                 propertiesWithBedrooms.put(property.getPropertyId(), property);
             }
         }
 
-        return propertiesWithBedrooms.isEmpty() ? null : propertiesWithBedrooms;
+        if(propertiesWithBedrooms.isEmpty())
+        {
+            return null;
+        }
+
+        return propertiesWithBedrooms;
     }
 
     /**
@@ -189,15 +235,21 @@ public class Agency
      * @param propertyType The type of property.
      * @return A list of property details for properties of the specified type, or null if none found.
      */
-    public ArrayList<String> getPropertiesOfType(final String propertyType) {
-        final ArrayList<String> propertiesOfType = new ArrayList<>();
-        int counter = 1;
+    public ArrayList<String> getPropertiesOfType(final String propertyType)
+    {
+        final ArrayList<String> propertiesOfType;
+        int counter;
+
+        counter = INITIAL_NUMBER_OF_PROPERTIES;
+        propertiesOfType= new ArrayList<>();
 
         // header
         propertiesOfType.add("Type: " + propertyType.toUpperCase() + "\n");
 
-        for (Property property : properties.values()) {
-            if (property.getType().equalsIgnoreCase(propertyType)) {
+        for(Property property : properties.values())
+        {
+            if(property.getType().equalsIgnoreCase(propertyType))
+            {
                 String propertyDetails = counter + ") Property " + property.getPropertyId() + ": " +
                         property.getAddress().getFullAddress() + " (" + property.getPropertyDetails() +
                         String.format("): $%.0f", property.getPriceUsd()) + ".\n";
@@ -207,11 +259,11 @@ public class Agency
             }
         }
 
-        if (propertiesOfType.size() == 1) {
+        if(propertiesOfType.size() == 1)
+        {
             propertiesOfType.add("<none found>");
         }
 
         return propertiesOfType;
     }
-
 }

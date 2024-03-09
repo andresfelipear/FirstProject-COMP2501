@@ -258,4 +258,16 @@ public class Address
 
         return titleCase.toString();
     }
+
+
+    /**
+     * Returns a string representation of the Address, including details such as unit number (if present), street number,
+     * street name, postal code, and city. The string is formatted to represent a full address.
+     *
+     * @return A formatted string representing the Address.
+     */
+    @Override
+    public String toString() {
+        return getFullAddress();
+    }
 }

@@ -8,38 +8,29 @@ public class Property
 {
     private double priceUsd;
     private final Address address;
-    private final int numberOfBedrooms;
-    private final boolean swimmingPool;
     private final String type;
     private final String propertyId;
 
-    private static final int SINGLE_BEDROOM = 1;
     private static final int MAX_PROPERTY_ID_LENGTH = 6;
-    private static final int MAX_NUMBER_OF_BEDROOMS = 20;
     private static final double MIN_PRICE_USD = 0;
 
 
     /**
      * Constructs a new Property object with the specified details.
      *
-     * @param priceUsd        The price of the property in USD.
-     *                        Throws IllegalArgumentException if the price is invalid.
-     * @param address         The address of the property.
-     *                        Throws NullPointerException if the address is null.
-     * @param numberOfBedrooms The number of bedrooms in the property.
-     *                        Throws IllegalArgumentException if the number of bedrooms is invalid.
-     * @param swimmingPool    Indicates whether the property has a swimming pool.
-     * @param type            The type of the property.
-     *                        Throws NullPointerException if the type is null.
-     *                        Throws IllegalArgumentException if the type is invalid.
-     * @param propertyId      The unique identifier of the property.
-     *                        Throws NullPointerException if the propertyId is null.
-     *                        Throws IllegalArgumentException if the propertyId is invalid.
+     * @param priceUsd         The price of the property in USD.
+     *                         Throws IllegalArgumentException if the price is invalid.
+     * @param address          The address of the property.
+     *                         Throws NullPointerException if the address is null.
+     * @param type             The type of the property.
+     *                         Throws NullPointerException if the type is null.
+     *                         Throws IllegalArgumentException if the type is invalid.
+     * @param propertyId       The unique identifier of the property.
+     *                         Throws NullPointerException if the propertyId is null.
+     *                         Throws IllegalArgumentException if the propertyId is invalid.
      */
     public Property(final double priceUsd,
                     final Address address,
-                    final int numberOfBedrooms,
-                    final boolean swimmingPool,
                     final String type,
                     final String propertyId)
     {
@@ -51,11 +42,6 @@ public class Property
         if(address == null)
         {
             throw new NullPointerException("Invalid address: " + address);
-        }
-
-        if(!isValidNumberBedrooms(numberOfBedrooms))
-        {
-            throw new IllegalArgumentException("Invalid number of bedrooms: " + numberOfBedrooms);
         }
 
         if(type == null)
@@ -80,8 +66,6 @@ public class Property
         this.type = type;
         this.priceUsd = priceUsd;
         this.address = address;
-        this.numberOfBedrooms = numberOfBedrooms;
-        this.swimmingPool = swimmingPool;
     }
 
     /**
@@ -103,28 +87,6 @@ public class Property
     public Address getAddress()
     {
         return address;
-    }
-
-
-    /**
-     * Gets the number of bedrooms in the property.
-     *
-     * @return The number of bedrooms in the property.
-     */
-    public int getNumberOfBedrooms()
-    {
-        return numberOfBedrooms;
-    }
-
-
-    /**
-     * Checks if the property has a swimming pool.
-     *
-     * @return true if the property has a swimming pool, false otherwise.
-     */
-    public boolean hasSwimmingPool()
-    {
-        return swimmingPool;
     }
 
 
@@ -188,18 +150,6 @@ public class Property
 
 
     /**
-     * Validates if the provided number of bedrooms is between 1 and 20.
-     *
-     * @param numberBedrooms The number of bedrooms to be validated.
-     * @return true if the number of bedrooms is valid, false otherwise.
-     */
-    private boolean isValidNumberBedrooms(final int numberBedrooms)
-    {
-        return numberBedrooms >= 1 && numberBedrooms <= MAX_NUMBER_OF_BEDROOMS;
-    }
-
-
-    /**
      * Validates if the provided price in USD is non-negative.
      *
      * @param priceUsd The price in USD to be validated.
@@ -212,33 +162,18 @@ public class Property
 
 
     /**
-     * Generates a string representing the details of the property based on the number of bedrooms and the presence of a pool.
+     * Returns a string representation of the Property, including details such as property ID, type, price, number of bedrooms,
+     * swimming pool availability, and the property's address.
      *
-     * @return A string describing the property details, including the number of bedrooms and whether it has a pool.
+     * @return A formatted string representing the Property.
      */
-    public String getPropertyDetails()
+    @Override
+    public String toString()
     {
-        if(swimmingPool)
-        {
-            if(numberOfBedrooms == SINGLE_BEDROOM)
-            {
-                return numberOfBedrooms + " bedroom plus pool";
-            }
-            else
-            {
-                return numberOfBedrooms + " bedrooms plus pool";
-            }
-        }
-        else
-        {
-            if(numberOfBedrooms == SINGLE_BEDROOM)
-            {
-                return numberOfBedrooms + " bedroom";
-            }
-            else
-            {
-                return numberOfBedrooms + " bedrooms";
-            }
-        }
+        return "Property Id: " + propertyId + "\n" +
+                "Type: " + type + "\n" +
+                "Price: $" + priceUsd + "\n" +
+                "Address: " + address.toString();
     }
+
 }

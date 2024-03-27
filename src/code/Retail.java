@@ -53,7 +53,7 @@ public class Retail extends Property
      *
      * @return true if customer parking is available, false otherwise.
      */
-    public boolean isCustomerParking()
+    public boolean hasCustomerParking()
     {
         return customerParking;
     }

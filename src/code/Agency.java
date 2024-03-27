@@ -112,19 +112,25 @@ public class Agency
      *
      * @return A list of properties with swimming pools, or null if none found.
      */
-    public List<Property> getPropertiesWithPools()
+    public List<Residence> getPropertiesWithPools()
     {
-        final List<Property> propertiesWithPools;
+        final List<Residence> propertiesWithPools;
         final Set<String> keys;
+        Residence residenceProperty;
 
         propertiesWithPools = new ArrayList<>();
         keys = properties.keySet();
 
         for(final String key : keys)
         {
-            if(properties.get(key).hasSwimmingPool())
+            if(properties.get(key) instanceof Residence)
             {
-                propertiesWithPools.add(properties.get(key));
+                residenceProperty = (Residence) properties.get(key);
+
+                if(residenceProperty.hasSwimmingPool())
+                {
+                    propertiesWithPools.add(residenceProperty);
+                }
             }
         }
 
@@ -208,17 +214,24 @@ public class Agency
      * @param maxBedrooms The maximum number of bedrooms.
      * @return A map of properties with the specified number of bedrooms, or null if none found.
      */
-    public HashMap<String, Property> getPropertiesWithBedrooms(final int minBedrooms,
+    public HashMap<String, Residence> getPropertiesWithBedrooms(final int minBedrooms,
                                                                final int maxBedrooms)
     {
-        final HashMap<String, Property> propertiesWithBedrooms;
+        final HashMap<String, Residence> propertiesWithBedrooms;
         propertiesWithBedrooms = new HashMap<>();
+        Residence residenceProperty;
 
         for(Property property : properties.values())
         {
-            if(property.getNumberOfBedrooms() >= minBedrooms && property.getNumberOfBedrooms() <= maxBedrooms)
+            if(property instanceof Residence)
             {
-                propertiesWithBedrooms.put(property.getPropertyId(), property);
+                residenceProperty = (Residence) property;
+
+                if(residenceProperty.getNumberOfBedrooms() >= minBedrooms &&
+                        residenceProperty.getNumberOfBedrooms() <= maxBedrooms)
+                {
+                    propertiesWithBedrooms.put(property.getPropertyId(), residenceProperty);
+                }
             }
         }
 
@@ -236,36 +249,194 @@ public class Agency
      * @param propertyType The type of property.
      * @return A list of property details for properties of the specified type, or null if none found.
      */
-    public ArrayList<String> getPropertiesOfType(final String propertyType)
+    public ArrayList<Property> getPropertiesOfType(final String propertyType)
     {
-        final ArrayList<String> propertiesOfType;
-        int counter;
-        String propertyDetails;
+        final ArrayList<Property> propertiesOfType;
 
-        counter = INITIAL_COUNTER_VALUE;
-        propertiesOfType= new ArrayList<>();
-
-        // header
-        propertiesOfType.add("Type: " + propertyType.toUpperCase() + "\n");
+        propertiesOfType = new ArrayList<>();
 
         for(Property property : properties.values())
         {
             if(property.getType().equalsIgnoreCase(propertyType))
             {
-                propertyDetails = counter + ") Property " + property.getPropertyId() + ": " +
-                        property.getAddress().getFullAddress() + " (" + property.getPropertyDetails() +
-                        String.format("): $%.0f", property.getPriceUsd()) + ".\n";
-
-                propertiesOfType.add(propertyDetails);
-                counter++;
+                propertiesOfType.add(property);
             }
         }
 
         if(propertiesOfType.size() == INITIAL_LIST_SIZE)
         {
-            propertiesOfType.add("<none found>");
+            return null;
         }
 
         return propertiesOfType;
+    }
+
+    /**
+     * Returns an ArrayList of Commercial properties that have a loading dock available.
+     *
+     * @return an ArrayList of Commercial properties with loading docks, or null if none are found
+     */
+    public ArrayList<Commercial> getPropertiesWithLoadingDock()
+    {
+        final ArrayList<Commercial> propertiesWithLoadingDock;
+        Commercial commercialProperty;
+
+        propertiesWithLoadingDock = new ArrayList<>();
+
+        for(Property property : properties.values())
+        {
+            if(property instanceof  Commercial)
+            {
+                commercialProperty = (Commercial) property;
+
+                if(commercialProperty.hasLoadingDock())
+                {
+                    propertiesWithLoadingDock.add(commercialProperty);
+                }
+            }
+        }
+
+        if(propertiesWithLoadingDock.size() == INITIAL_LIST_SIZE)
+        {
+            return null;
+        }
+
+        return propertiesWithLoadingDock;
+    }
+
+
+    /**
+     * Returns an ArrayList of Commercial properties that have highway access.
+     *
+     * @return an ArrayList of Commercial properties with highway access, or null if none are found
+     */
+    public ArrayList<Commercial> getPropertiesWithHighwayAccess()
+    {
+        final ArrayList<Commercial> propertiesWithHighwayAccess;
+        Commercial commercialProperty;
+
+        propertiesWithHighwayAccess = new ArrayList<>();
+
+        for(Property property : properties.values())
+        {
+            if(property instanceof  Commercial)
+            {
+                commercialProperty = (Commercial) property;
+
+                if(commercialProperty.hasHighwayAccess())
+                {
+                    propertiesWithHighwayAccess.add(commercialProperty);
+                }
+            }
+        }
+
+        if(propertiesWithHighwayAccess.size() == INITIAL_LIST_SIZE)
+        {
+            return null;
+        }
+
+        return propertiesWithHighwayAccess;
+    }
+
+
+    /**
+     * Returns an ArrayList of Retail properties where the square footage is at least the specified value.
+     *
+     * @param squareFootage the minimum square footage required
+     * @return an ArrayList of Retail properties meeting the square footage criteria, or null if none are found
+     */
+    public ArrayList<Retail> getPropertiesWithSquareFootage(int squareFootage)
+    {
+        final ArrayList<Retail> propertiesWithSquareFootage;
+        Retail retailProperty;
+
+        propertiesWithSquareFootage = new ArrayList<>();
+
+        for(Property property : properties.values())
+        {
+            if(property instanceof  Retail)
+            {
+                retailProperty = (Retail) property;
+
+                if(retailProperty.getSquareFootage() >= squareFootage)
+                {
+                    propertiesWithSquareFootage.add(retailProperty);
+                }
+            }
+        }
+
+        if(propertiesWithSquareFootage.size() == INITIAL_LIST_SIZE)
+        {
+            return null;
+        }
+
+        return propertiesWithSquareFootage;
+    }
+
+    /**
+     * Returns an ArrayList of Retail properties where customer parking is available.
+     *
+     * @return an ArrayList of Retail properties with customer parking, or null if none are found
+     */
+    public ArrayList<Retail> getPropertiesWithCustomerParking()
+    {
+        final ArrayList<Retail> propertiesWithCustomerParking;
+        Retail retailProperty;
+
+        propertiesWithCustomerParking = new ArrayList<>();
+
+        for(Property property : properties.values())
+        {
+            if(property instanceof  Retail)
+            {
+                retailProperty = (Retail) property;
+
+                if(retailProperty.hasCustomerParking())
+                {
+                    propertiesWithCustomerParking.add(retailProperty);
+                }
+            }
+        }
+
+        if(propertiesWithCustomerParking.size() == INITIAL_LIST_SIZE)
+        {
+            return null;
+        }
+
+        return propertiesWithCustomerParking;
+    }
+
+
+    /**
+     * Returns an ArrayList of Residence properties that are in a strata.
+     *
+     * @return an ArrayList of Residence properties in a strata, or null if none are found
+     */
+    public ArrayList<Residence> getPropertiesWithStrata()
+    {
+        final ArrayList<Residence> propertiesWithStrata;
+        Residence residenceProperty;
+
+        propertiesWithStrata = new ArrayList<>();
+
+        for(Property property : properties.values())
+        {
+            if(property instanceof  Residence)
+            {
+                residenceProperty = (Residence) property;
+
+                if(residenceProperty.hasStrata())
+                {
+                    propertiesWithStrata.add(residenceProperty);
+                }
+            }
+        }
+
+        if(propertiesWithStrata.size() == INITIAL_LIST_SIZE)
+        {
+            return null;
+        }
+
+        return propertiesWithStrata;
     }
 }

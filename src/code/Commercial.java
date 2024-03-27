@@ -41,7 +41,7 @@ public class Commercial extends Property
      *
      * @return true if the property has a loading dock, false otherwise.
      */
-    public boolean isLoadingDock()
+    public boolean hasLoadingDock()
     {
         return loadingDock;
     }
@@ -52,7 +52,7 @@ public class Commercial extends Property
      *
      * @return true if the property has highway access, false otherwise.
      */
-    public boolean isHighwayAccess()
+    public boolean hasHighwayAccess()
     {
         return highwayAccess;
     }

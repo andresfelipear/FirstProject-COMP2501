@@ -75,4 +75,19 @@ public class Residence extends Property
                 "Swimming Pool: " + (swimmingPool ? "yes" : "no") + "\n" +
                 "Strata: " + (strata ? "yes" : "no");
     }
+
+    public int getNumberOfBedrooms()
+    {
+        return numberOfBedrooms;
+    }
+
+    public boolean hasSwimmingPool()
+    {
+        return swimmingPool;
+    }
+
+    public boolean hasStrata()
+    {
+        return strata;
+    }
 }

@@ -11,7 +11,6 @@ public class Agency
     private final String name;
     private final Map<String, Property> properties;
 
-    private static final int INITIAL_LIST_SIZE = 1;
     public static final int MAX_NAME_LENGTH = 30;
 
     /**
@@ -262,11 +261,6 @@ public class Agency
             }
         }
 
-        if(propertiesOfType.size() == INITIAL_LIST_SIZE)
-        {
-            return null;
-        }
-
         return propertiesOfType;
     }
 
@@ -295,7 +289,7 @@ public class Agency
             }
         }
 
-        if(propertiesWithLoadingDock.size() == INITIAL_LIST_SIZE)
+        if(propertiesWithLoadingDock.isEmpty())
         {
             return null;
         }
@@ -329,7 +323,7 @@ public class Agency
             }
         }
 
-        if(propertiesWithHighwayAccess.size() == INITIAL_LIST_SIZE)
+        if(propertiesWithHighwayAccess.isEmpty())
         {
             return null;
         }
@@ -364,7 +358,7 @@ public class Agency
             }
         }
 
-        if(propertiesWithSquareFootage.size() == INITIAL_LIST_SIZE)
+        if(propertiesWithSquareFootage.isEmpty())
         {
             return null;
         }
@@ -397,7 +391,7 @@ public class Agency
             }
         }
 
-        if(propertiesWithCustomerParking.size() == INITIAL_LIST_SIZE)
+        if(propertiesWithCustomerParking.isEmpty())
         {
             return null;
         }
@@ -431,7 +425,7 @@ public class Agency
             }
         }
 
-        if(propertiesWithStrata.size() == INITIAL_LIST_SIZE)
+        if(propertiesWithStrata.isEmpty())
         {
             return null;
         }

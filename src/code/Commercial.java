@@ -1,7 +1,7 @@
 /**
- * Commercial
+ * Commercial Property of BCIT
  *
- * @author user
+ * @author Andres Arevalo
  * @version 1.0
  */
 public class Commercial extends Property

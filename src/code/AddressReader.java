@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * AddressReader
+ * AddressReader of BCIT
  *
- * @author user
+ * @author Andres Arevalo
  * @version 1.0
  */
 public class AddressReader

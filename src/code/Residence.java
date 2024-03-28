@@ -1,5 +1,5 @@
 /**
- * Residence
+ * Residence Property of BCIT
  *
  * @author Andres Arevalo
  * @version 1.0

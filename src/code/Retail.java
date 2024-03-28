@@ -71,6 +71,6 @@ public class Retail extends Property
         return "Retail\n" +
                 super.toString() +
                 "Square Footage: " + squareFootage + " sq.ft.\n" +
-                "Customer Parking: " + (customerParking ? "yes" : "no");
+                "Customer Parking: " + (customerParking ? "yes" : "no") + "\n";
     }
 }

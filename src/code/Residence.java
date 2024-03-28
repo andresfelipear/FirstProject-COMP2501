@@ -37,7 +37,7 @@ public class Residence extends Property
               type,
               propertyId);
 
-        if(isValidNumberBedrooms(numberOfBedrooms))
+        if(!isValidNumberBedrooms(numberOfBedrooms))
         {
             throw new IllegalArgumentException("Invalid number of bedrooms: " + numberOfBedrooms);
         }
@@ -71,9 +71,9 @@ public class Residence extends Property
     {
         return "Residence\n" +
                 super.toString() +
-                "Number of Bedrooms: " + numberOfBedrooms + "\n" +
+                "\nNumber of Bedrooms: " + numberOfBedrooms + "\n" +
                 "Swimming Pool: " + (swimmingPool ? "yes" : "no") + "\n" +
-                "Strata: " + (strata ? "yes" : "no");
+                "Strata: " + (strata ? "yes" : "no") + "\n";
     }
 
     public int getNumberOfBedrooms()

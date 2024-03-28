@@ -70,6 +70,6 @@ public class Commercial extends Property
         return "Commercial\n" +
                 super.toString() +
                 "Loading Dock: " + (loadingDock ? "yes" : "no") + "\n" +
-                "Highway Access: " + (highwayAccess ? "yes" : "no");
+                "Highway Access: " + (highwayAccess ? "yes" : "no") + "\n";
     }
 }

@@ -15,7 +15,7 @@ public class Assignment2
 {
     private final Scanner scanner;
     private static final String ADDRESSES_FILE_NAME = "address_data.txt";
-    private static final String PROPERTIES_FILE_NAME = "property_data";
+    private static final String PROPERTIES_FILE_NAME = "property_data.txt";
     private static final String SPLIT_CHARACTER = "\\|";
 
     private static final int RESIDENCE_PRICE_USD = 0;
@@ -68,6 +68,23 @@ public class Assignment2
     {
         agency = new Agency("Property Agency");
         scanner = new Scanner(System.in);
+    }
+
+
+    public static void main(final String[] args) throws FileNotFoundException
+    {
+        try
+        {
+            Assignment2 assignment2;
+
+            assignment2 = new Assignment2();
+            assignment2.init();
+            assignment2.doSearch();
+        }
+        catch(FileNotFoundException fileNotFoundException)
+        {
+            System.out.println(fileNotFoundException.toString());
+        }
     }
 
 
@@ -126,6 +143,7 @@ public class Assignment2
 
             if(mainMenuOption == OPTION_EXIT_PROGRAM)
             {
+                System.out.println("Goodbye for now!");
                 break;
             }
 
@@ -233,9 +251,16 @@ public class Assignment2
             propertiesWithCustomerParking = agency.getPropertiesWithCustomerParking();
             System.out.println("Retail Properties with Customer Parking");
 
-            for(Property propertyWithCustomerParking : propertiesWithCustomerParking)
+            if(propertiesWithCustomerParking == null)
             {
-                System.out.println(propertyWithCustomerParking);
+                System.out.println("There are not properties with customer parking");
+            }
+            else
+            {
+                for(Property propertyWithCustomerParking : propertiesWithCustomerParking)
+                {
+                    System.out.println(propertyWithCustomerParking);
+                }
             }
         }
         else
@@ -292,6 +317,7 @@ public class Assignment2
             maxNumberBedrooms = scanner.nextInt();
 
             propertiesWithBedrooms = agency.getPropertiesWithBedrooms(minNumberBedrooms, maxNumberBedrooms);
+
             for(Property propertyWithBedrooms : propertiesWithBedrooms.values())
             {
                 System.out.println(propertyWithBedrooms);
@@ -331,6 +357,7 @@ public class Assignment2
         final double maxPrice;
         final String streetName;
         final String propertyType;
+
         final Property[] propertiesBetween;
         final List<Address> propertiesAddressOn;
         final ArrayList<Property> propertiesOfType;

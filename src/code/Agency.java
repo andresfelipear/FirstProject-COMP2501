@@ -12,7 +12,6 @@ public class Agency
     private final Map<String, Property> properties;
 
     private static final int INITIAL_LIST_SIZE = 1;
-    public static final int INITIAL_COUNTER_VALUE = 1;
     public static final int MAX_NAME_LENGTH = 30;
 
     /**
@@ -112,9 +111,9 @@ public class Agency
      *
      * @return A list of properties with swimming pools, or null if none found.
      */
-    public List<Residence> getPropertiesWithPools()
+    public ArrayList<Residence> getPropertiesWithPools()
     {
-        final List<Residence> propertiesWithPools;
+        final ArrayList<Residence> propertiesWithPools;
         final Set<String> keys;
         Residence residenceProperty;
 
@@ -181,9 +180,9 @@ public class Agency
      * @param streetName The name of the street.
      * @return A list of addresses for properties on the specified street, or null if none found.
      */
-    public List<Address> getPropertiesOn(final String streetName)
+    public ArrayList<Address> getPropertiesOn(final String streetName)
     {
-        final List<Address> addressesOn;
+        final ArrayList<Address> addressesOn;
         Address propertyAddress;
 
         addressesOn = new ArrayList<>();
@@ -276,7 +275,7 @@ public class Agency
      *
      * @return an ArrayList of Commercial properties with loading docks, or null if none are found
      */
-    public ArrayList<Commercial> getPropertiesWithLoadingDock()
+    public ArrayList<Commercial> getPropertiesWithLoadingDocks()
     {
         final ArrayList<Commercial> propertiesWithLoadingDock;
         Commercial commercialProperty;
@@ -345,7 +344,7 @@ public class Agency
      * @param squareFootage the minimum square footage required
      * @return an ArrayList of Retail properties meeting the square footage criteria, or null if none are found
      */
-    public ArrayList<Retail> getPropertiesWithSquareFootage(int squareFootage)
+    public ArrayList<Retail> getPropertiesSquareFootage(int squareFootage)
     {
         final ArrayList<Retail> propertiesWithSquareFootage;
         Retail retailProperty;

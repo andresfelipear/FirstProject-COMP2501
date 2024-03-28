@@ -121,6 +121,12 @@ public class Assignment2
     }
 
 
+    /**
+     * This method provides the primary user interface through command prompts
+     * that will allow the user to choose which search operations to perform.
+     * The method prompts the user to select a query category (General, Residence, Commercial, Retail)
+     * and performs corresponding property searches.
+     */
     public void doSearch()
     {
         int mainMenuOption;
@@ -226,6 +232,12 @@ public class Assignment2
         }
     }
 
+
+    /**
+     * Processes retail queries based on the selected option.
+     *
+     * @param retailQueriesOption the selected retail query option
+     */
     private void processRetailQueries(final int retailQueriesOption)
     {
         final ArrayList<Retail> propertiesWithSquareFootage;
@@ -237,7 +249,7 @@ public class Assignment2
             System.out.println("Enter min square footage: ");
             minSquareFootage = scanner.nextInt();
 
-            propertiesWithSquareFootage = agency.getPropertiesWithSquareFootage(minSquareFootage);
+            propertiesWithSquareFootage = agency.getPropertiesSquareFootage(minSquareFootage);
 
             System.out.println("Retail properties with minimum square footage of: " + minSquareFootage);
 
@@ -246,7 +258,7 @@ public class Assignment2
                 System.out.println(propertyWithSquareFootage);
             }
         }
-        else if(retailQueriesOption == OPTION_BY_HIGHWAY_ACCESS)
+        else if(retailQueriesOption == OPTION_BY_CUSTOMER_PARKING)
         {
             propertiesWithCustomerParking = agency.getPropertiesWithCustomerParking();
             System.out.println("Retail Properties with Customer Parking");
@@ -269,6 +281,12 @@ public class Assignment2
         }
     }
 
+
+    /**
+     * Processes commercial queries based on the selected option.
+     *
+     * @param commercialQueriesOption the selected commercial query option
+     */
     private void processCommercialQueries(final int commercialQueriesOption)
     {
         final ArrayList<Commercial> propertiesWithLoadingDock;
@@ -276,7 +294,7 @@ public class Assignment2
 
         if(commercialQueriesOption == OPTION_BY_LOADING_DOCK)
         {
-            propertiesWithLoadingDock = agency.getPropertiesWithLoadingDock();
+            propertiesWithLoadingDock = agency.getPropertiesWithLoadingDocks();
             System.out.println("Commercial Properties with Loading Dock");
 
             for(Property propertyWithLoadingDock : propertiesWithLoadingDock)
@@ -300,6 +318,12 @@ public class Assignment2
         }
     }
 
+
+    /**
+     * Processes residence queries based on the selected option.
+     *
+     * @param residenceQueriesOption the selected residence query option
+     */
     private void processResidenceQueries(final int residenceQueriesOption)
     {
         final int minNumberBedrooms;
@@ -349,6 +373,12 @@ public class Assignment2
         }
     }
 
+
+    /**
+     * Processes general queries based on the selected option.
+     *
+     * @param generalQueriesOption the selected general query option
+     */
     private void processGeneralQueries(final int generalQueriesOption)
     {
         final String propertyId;
@@ -416,6 +446,13 @@ public class Assignment2
     }
 
 
+    /**
+     * Parses a string representing a property and creates a Property object from it.
+     *
+     * @param propertyString the string representing the property
+     * @param address the address associated with the property
+     * @return a Property object parsed from the input string
+     */
     private static Property getPropertyFromString(final String propertyString, final Address address)
     {
         String[] propertyArray;

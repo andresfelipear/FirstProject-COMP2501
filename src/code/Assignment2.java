@@ -52,9 +52,15 @@ public class Assignment2
     private static final int OPTION_BY_BEDROOM = 1;
     private static final int OPTION_BY_POOL = 2;
     private static final int OPTION_BY_STRATA = 3;
-    private static final int OPTION_RESIDENCE_BACK_MAIN_MENU = 4;
+    private static final int OPTION_EXIT_RESIDENCE_MENU = 4;
 
+    private static final int OPTION_BY_LOADING_DOCK = 1;
+    private static final int OPTION_BY_HIGHWAY_ACCESS= 2;
+    private static final int OPTION_EXIT_COMMERCIAL_MENU = 3;
 
+    private static final int OPTION_BY_SQUARE_FOOTAGE = 1;
+    private static final int OPTION_BY_CUSTOMER_PARKING = 2;
+    private static final int OPTION_EXIT_RETAIL_MENU = 3;
 
     private final Agency agency;
 
@@ -151,9 +157,9 @@ public class Assignment2
                                                "\t3. By Strata\n" +
                                                "\t4. Back");
 
-                    residenceQueriesOption = Integer.parseInt(scanner.next());
+                    residenceQueriesOption = scanner.nextInt();
 
-                    if(residenceQueriesOption == OPTION_RESIDENCE_BACK_MAIN_MENU)
+                    if(residenceQueriesOption == OPTION_EXIT_RESIDENCE_MENU)
                     {
                         break;
                     }
@@ -167,6 +173,15 @@ public class Assignment2
                     System.out.println("\t1. By Loading Dock\n" +
                                                "\t2. By Highway Access\n" +
                                                "\t3. Back");
+
+                    commercialQueriesOption = scanner.nextInt();
+
+                    if(commercialQueriesOption == OPTION_EXIT_COMMERCIAL_MENU)
+                    {
+                        break;
+                    }
+
+                    processCommercialQueries(commercialQueriesOption);
                 }
                 else if(mainMenuOption == OPTION_RETAIL_QUERIES)
                 {
@@ -174,6 +189,15 @@ public class Assignment2
                     System.out.println("\t1. By Square Footage\n" +
                                                "\t2. By Customer Parking\n" +
                                                "\t3. Back");
+
+                    retailQueriesOption = scanner.nextInt();
+
+                    if(retailQueriesOption == OPTION_EXIT_RETAIL_MENU)
+                    {
+                        break;
+                    }
+
+                    processRetailQueries(retailQueriesOption);
                 }
                 else
                 {
@@ -181,6 +205,73 @@ public class Assignment2
                 }
             }
 
+        }
+    }
+
+    private void processRetailQueries(final int retailQueriesOption)
+    {
+        final ArrayList<Retail> propertiesWithSquareFootage;
+        final ArrayList<Retail> propertiesWithCustomerParking;
+        final int minSquareFootage;
+
+        if(retailQueriesOption == OPTION_BY_SQUARE_FOOTAGE)
+        {
+            System.out.println("Enter min square footage: ");
+            minSquareFootage = scanner.nextInt();
+
+            propertiesWithSquareFootage = agency.getPropertiesWithSquareFootage(minSquareFootage);
+
+            System.out.println("Retail properties with minimum square footage of: " + minSquareFootage);
+
+            for(Property propertyWithSquareFootage : propertiesWithSquareFootage)
+            {
+                System.out.println(propertyWithSquareFootage);
+            }
+        }
+        else if(retailQueriesOption == OPTION_BY_HIGHWAY_ACCESS)
+        {
+            propertiesWithCustomerParking = agency.getPropertiesWithCustomerParking();
+            System.out.println("Retail Properties with Customer Parking");
+
+            for(Property propertyWithCustomerParking : propertiesWithCustomerParking)
+            {
+                System.out.println(propertyWithCustomerParking);
+            }
+        }
+        else
+        {
+            System.out.println("Invalid Option. Try Again!");
+        }
+    }
+
+    private void processCommercialQueries(final int commercialQueriesOption)
+    {
+        final ArrayList<Commercial> propertiesWithLoadingDock;
+        final ArrayList<Commercial> propertiesWithHighwayAccess;
+
+        if(commercialQueriesOption == OPTION_BY_LOADING_DOCK)
+        {
+            propertiesWithLoadingDock = agency.getPropertiesWithLoadingDock();
+            System.out.println("Commercial Properties with Loading Dock");
+
+            for(Property propertyWithLoadingDock : propertiesWithLoadingDock)
+            {
+                System.out.println(propertyWithLoadingDock);
+            }
+        }
+        else if(commercialQueriesOption == OPTION_BY_HIGHWAY_ACCESS)
+        {
+            propertiesWithHighwayAccess = agency.getPropertiesWithHighwayAccess();
+            System.out.println("Commercial Properties with Highway Access");
+
+            for(Property propertyWithHighwayAccess : propertiesWithHighwayAccess)
+            {
+                System.out.println(propertyWithHighwayAccess);
+            }
+        }
+        else
+        {
+            System.out.println("Invalid Option. Try Again!");
         }
     }
 
@@ -290,6 +381,10 @@ public class Assignment2
             {
                 System.out.println(propertyOfType);
             }
+        }
+        else
+        {
+            System.out.println("Invalid Option. Try Again!");
         }
     }
 

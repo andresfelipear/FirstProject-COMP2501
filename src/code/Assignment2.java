@@ -11,6 +11,7 @@ import java.util.Scanner;
  */
 public class Assignment2
 {
+    private final Scanner scanner;
     private static final String ADDRESSES_FILE_NAME = "address_data.txt";
     private static final String PROPERTIES_FILE_NAME = "property_data";
     private static final String SPLIT_CHARACTER = "\\|";
@@ -35,6 +36,16 @@ public class Assignment2
     private static final int HIGHWAY_ACCESS = 4;
 
     private static final int OPTION_GENERAL_QUERIES = 1;
+    private static final int OPTION_RESIDENCE_QUERIES = 2;
+    private static final int OPTION_COMMERCIAL_QUERIES = 3;
+    private static final int OPTION_RETAIL_QUERIES = 4;
+    private static final int OPTION_EXIT_PROGRAM = 5;
+
+    private static final int OPTION_BY_PROPERTY_ID = 1;
+    private static final int OPTION_BY_PRICE = 2;
+    private static final int OPTION_BY_STREET = 3;
+    private static final int OPTION_BY_TYPE = 4;
+    private static final int OPTION_BACK_MAIN_MENU = 5;
 
 
     private final Agency agency;
@@ -42,6 +53,7 @@ public class Assignment2
     public Assignment2()
     {
         agency = new Agency("Property Agency");
+        scanner = new Scanner(System.in);
     }
 
 
@@ -80,9 +92,11 @@ public class Assignment2
 
     public void doSearch()
     {
-        Scanner scanner;
         int mainMenuOption;
-        scanner = new Scanner(System.in);
+        int generalQueriesOption;
+        int residenceQueriesOption;
+        int commercialQueriesOption;
+        int retailQueriesOption;
 
         while(true)
         {
@@ -96,24 +110,93 @@ public class Assignment2
 
             mainMenuOption = Integer.parseInt(scanner.next());
 
+            if(mainMenuOption == OPTION_EXIT_PROGRAM)
+            {
+                break;
+            }
+
             while(true)
             {
+                if(mainMenuOption == OPTION_GENERAL_QUERIES)
+                {
+                    System.out.println("General Queries");
+                    System.out.println("\t1. By Property Id\n" +
+                                               "\t2. By Price\n" +
+                                               "\t3. By Street\n" +
+                                               "\t4. By Type\n" +
+                                               "\t5. Back");
 
-            }
-            if(mainMenuOption == OPTION_GENERAL_QUERIES)
-            {
-                System.out.println("General Queires");
-                System.out.println("\t1. By Property Id\n" +
-                                           "\t2. By Price\n" +
-                                           "\t3. By Street\n" +
-                                           "\t4. By Type\n" +
-                                           "\t5. Back");
+                    generalQueriesOption = Integer.parseInt(scanner.next());
 
+                    if(generalQueriesOption == OPTION_BACK_MAIN_MENU)
+                    {
+                        break;
+                    }
+
+                    processGeneralQueries(generalQueriesOption);
+                }
+                else if(mainMenuOption == OPTION_RESIDENCE_QUERIES)
+                {
+                    System.out.println("Residence Queries");
+                    System.out.println("\t1. By Bedroom\n" +
+                                               "\t2. By Pool\n" +
+                                               "\t3. By Strata\n" +
+                                               "\t4. Back");
+
+                }
+                else if(mainMenuOption == OPTION_COMMERCIAL_QUERIES)
+                {
+                    System.out.println("Commercial Queries");
+                    System.out.println("\t1. By Loading Dock\n" +
+                                               "\t2. By Highway Access\n" +
+                                               "\t3. Back");
+                }
+                else if(mainMenuOption == OPTION_RETAIL_QUERIES)
+                {
+                    System.out.println("Retail Queries");
+                    System.out.println("\t1. By Square Footage\n" +
+                                               "\t2. By Customer Parking\n" +
+                                               "\t3. Back");
+                }
             }
 
         }
     }
 
+    private void processGeneralQueries(final int generalQueriesOption)
+    {
+        final String propertyId;
+        final Property property;
+        final double minPrice;
+        final double maxPrice;
+        final Property[] propertiesBetween;
+
+        if(generalQueriesOption == OPTION_BY_PROPERTY_ID)
+        {
+            System.out.print("Enter property id: ");
+            propertyId = scanner.next();
+            property = agency.getProperty(propertyId);
+
+            System.out.println(property);
+        }
+        else if(generalQueriesOption == OPTION_BY_PRICE)
+        {
+            System.out.print("Enter Min property price: $");
+            minPrice = Double.parseDouble(scanner.next());
+
+            System.out.print("Enter Max property price: $");
+            maxPrice = Double.parseDouble(scanner.next());
+
+            propertiesBetween = agency.getPropertiesBetween(minPrice, maxPrice);
+
+            System.out.format("Find next the properties between %.2f and %.2f", minPrice, maxPrice);
+
+            for(Property propertyBetween : propertiesBetween)
+            {
+                System.out.println(propertyBetween);
+            }
+        }
+    }
 
 
     private static Property getPropertyFromString(final String propertyString, final Address address)

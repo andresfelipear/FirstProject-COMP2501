@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -46,6 +48,12 @@ public class Assignment2
     private static final int OPTION_BY_STREET = 3;
     private static final int OPTION_BY_TYPE = 4;
     private static final int OPTION_BACK_MAIN_MENU = 5;
+
+    private static final int OPTION_BY_BEDROOM = 1;
+    private static final int OPTION_BY_POOL = 2;
+    private static final int OPTION_BY_STRATA = 3;
+    private static final int OPTION_RESIDENCE_BACK_MAIN_MENU = 4;
+
 
 
     private final Agency agency;
@@ -143,6 +151,15 @@ public class Assignment2
                                                "\t3. By Strata\n" +
                                                "\t4. Back");
 
+                    residenceQueriesOption = Integer.parseInt(scanner.next());
+
+                    if(residenceQueriesOption == OPTION_RESIDENCE_BACK_MAIN_MENU)
+                    {
+                        break;
+                    }
+
+                    processResidenceQueries(residenceQueriesOption);
+
                 }
                 else if(mainMenuOption == OPTION_COMMERCIAL_QUERIES)
                 {
@@ -158,8 +175,60 @@ public class Assignment2
                                                "\t2. By Customer Parking\n" +
                                                "\t3. Back");
                 }
+                else
+                {
+                    System.out.println("Invalid Option. Try Again!");
+                }
             }
 
+        }
+    }
+
+    private void processResidenceQueries(final int residenceQueriesOption)
+    {
+        final int minNumberBedrooms;
+        final int maxNumberBedrooms;
+        final HashMap<String, Residence> propertiesWithBedrooms;
+        final List<Residence> propertiesWithPool;
+        final ArrayList<Residence> propertiesWithStata;
+
+        if(residenceQueriesOption == OPTION_BY_BEDROOM)
+        {
+            System.out.print("Enter min number of bedrooms: ");
+            minNumberBedrooms = scanner.nextInt();
+
+            System.out.print("Enter max number of bedrooms: ");
+            maxNumberBedrooms = scanner.nextInt();
+
+            propertiesWithBedrooms = agency.getPropertiesWithBedrooms(minNumberBedrooms, maxNumberBedrooms);
+            for(Property propertyWithBedrooms : propertiesWithBedrooms.values())
+            {
+                System.out.println(propertyWithBedrooms);
+            }
+        }
+        else if(residenceQueriesOption == OPTION_BY_POOL)
+        {
+            propertiesWithPool = agency.getPropertiesWithPools();
+            System.out.println("Residences with swimming pool: ");
+
+            for(Property propertyWithPool : propertiesWithPool)
+            {
+                System.out.println(propertyWithPool);
+            }
+        }
+        else if(residenceQueriesOption == OPTION_BY_STRATA)
+        {
+            propertiesWithStata = agency.getPropertiesWithStrata();
+            System.out.println("Residences with strata: ");
+
+            for(Property propertyWithStrata : propertiesWithStata)
+            {
+                System.out.println(propertyWithStrata);
+            }
+        }
+        else
+        {
+            System.out.println("Invalid Option. Try Again!");
         }
     }
 
@@ -169,7 +238,11 @@ public class Assignment2
         final Property property;
         final double minPrice;
         final double maxPrice;
+        final String streetName;
+        final String propertyType;
         final Property[] propertiesBetween;
+        final List<Address> propertiesAddressOn;
+        final ArrayList<Property> propertiesOfType;
 
         if(generalQueriesOption == OPTION_BY_PROPERTY_ID)
         {
@@ -190,10 +263,32 @@ public class Assignment2
             propertiesBetween = agency.getPropertiesBetween(minPrice, maxPrice);
 
             System.out.format("Find next the properties between %.2f and %.2f", minPrice, maxPrice);
-
             for(Property propertyBetween : propertiesBetween)
             {
                 System.out.println(propertyBetween);
+            }
+        }
+        else if(generalQueriesOption == OPTION_BY_STREET)
+        {
+            System.out.print("Enter the Street name: ");
+            streetName = scanner.next();
+            propertiesAddressOn = agency.getPropertiesOn(streetName);
+
+            System.out.println("Property addresses on " + streetName);
+            for(Address addressOn : propertiesAddressOn)
+            {
+                System.out.println(addressOn);
+            }
+        }
+        else if(generalQueriesOption == OPTION_BY_TYPE)
+        {
+            System.out.print("Please enter the property type: ");
+            propertyType = scanner.next();
+
+            propertiesOfType = agency.getPropertiesOfType(propertyType);
+            for(Property propertyOfType : propertiesOfType)
+            {
+                System.out.println(propertyOfType);
             }
         }
     }
